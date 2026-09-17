@@ -1,0 +1,17 @@
+node_modules/
+.env
+.env.local
+*.log
+.DS_Store
+dist/
+build/
+.firebase/
+serviceAccountKey.json
+*.pem
+*.p12
+.idea/
+.vscode/
+*.swp
+*.swo
+coverage/
+.nyc_output/
