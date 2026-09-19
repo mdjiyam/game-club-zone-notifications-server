@@ -2,11 +2,11 @@ const { getDatabase, getMessaging } = require('../config/firebase');
 
 /**
  * Get all valid FCM tokens from Realtime Database
- * Structure: users/{uid}/fcmToken
+ * Structure: All_Users/{uid}/fcmToken
  */
 async function getAllTokens() {
   const db = getDatabase();
-  const snapshot = await db.ref('users').once('value');
+  const snapshot = await db.ref('All_Users').once('value');
   const users = snapshot.val() || {};
 
   const tokens = [];
@@ -32,7 +32,7 @@ async function getUserToken(uid) {
   }
 
   const db = getDatabase();
-  const snapshot = await db.ref(`users/${uid}/fcmToken`).once('value');
+  const snapshot = await db.ref(`All_Users/${uid}/fcmToken`).once('value');
   const token = snapshot.val();
 
   if (typeof token === 'string' && token.trim().length > 10) {
@@ -47,7 +47,7 @@ async function getUserToken(uid) {
 async function removeInvalidToken(uid) {
   try {
     const db = getDatabase();
-    await db.ref(`users/${uid}/fcmToken`).remove();
+    await db.ref(`All_Users/${uid}/fcmToken`).remove();
     console.log(`🗑️ Removed invalid FCM token for user: ${uid}`);
   } catch (err) {
     console.error(`Failed to remove invalid token for ${uid}:`, err.message);
